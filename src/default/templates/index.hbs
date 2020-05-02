@@ -1,0 +1,38 @@
+<div class="tsd-panel tsd-typography">
+  <h1 class="h3 mb-3 font-weight-normal">Short Unique ID</h1>
+  <img class="mb-4" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Order_and_disorder.svg" alt="image depicting order and disorder" width="200">
+  <p>
+    This page is part of the <a href="https://en.wikipedia.org/wiki/Open_source" target="_blank">open source</a> 
+    javascript library</a> <a href="https://github.com/jeanlescure/short-unique-id" target="_blank">short-unique-id</a>.
+  </p>
+  <h2>Online (short) UUID generator</h2>
+  <p>Press the buttons below to generate your short uuid codes:</p>
+  Length: <input type="number" id="uuidLen" name="uuidLen" min="1" max="32" value="6" style="width: 34px;">
+  <button id="genRandom" class="btn-success">
+    Generate Random Short UUID
+  </button>
+  <p>
+    <strong>Your random UUID:</strong> <span id="randomResult" class="m-4">&nbsp;</span>
+  </p>
+  <button id="genSequential" class="btn-success">
+    Generate Random Sequential Short UUID
+  </button>
+  <p>
+    <strong>Your sequential UUID:</strong> <span id="sequentialResult" class="m-4">&nbsp;</span>
+  </p>
+  <script>
+    var ShortUniqueId = window['short-unique-id'].default;
+    var uid = new ShortUniqueId({debug: true});
+    $('#genRandom').click(function(e){
+      e.preventDefault();
+      $('#randomResult').html(uid.randomUUID(parseInt($('#uuidLen')[0].value)));
+    });
+    $('#genSequential').click(function(e){
+      e.preventDefault();
+      $('#sequentialResult').html(uid.sequentialUUID());
+    });
+  </script>
+</div>
+<div class="tsd-panel tsd-typography">
+  {{#markdown}}{{{model.readme}}}{{/markdown}}
+</div>

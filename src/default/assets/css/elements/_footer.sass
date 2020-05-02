@@ -1,0 +1,30 @@
+footer
+  border-top: 1px solid $COLOR_PANEL_DIVIDER
+  background-color: $COLOR_PANEL
+  box-shadow: 0 0 4px rgba(#000, 0.25)
+
+  &.with-border-bottom
+    border-bottom: 1px solid $COLOR_PANEL_DIVIDER
+
+  .tsd-legend-group
+    font-size: 0
+
+  .tsd-legend
+    display: inline-block
+    width: 25%
+    padding: 0
+    font-size: $FONT_SIZE
+    list-style: none
+    line-height: $LINE_HEIGHT
+    vertical-align: top
+
+    +size-xs-sm
+      width: 50%
+
+@media (prefers-color-scheme: dark)
+  footer
+    border-top: 1px solid $DARK_COLOR_PANEL_DIVIDER
+    background-color: $DARK_COLOR_PANEL
+
+    &.with-border-bottom
+      border-bottom: 1px solid $DARK_COLOR_PANEL_DIVIDER

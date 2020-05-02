@@ -1,0 +1,13 @@
+{{#if parent}}
+  <li>
+    <a href="/">Home</a>
+  </li>
+  {{#with parent}}{{> breadcrumb}}{{/with}}
+  <li>
+    {{#if url}}
+      <a href="{{relativeURL url}}">{{name}}</a>
+    {{else}}
+      <span>{{name}}</span>
+    {{/if}}
+  </li>
+{{/if}}
