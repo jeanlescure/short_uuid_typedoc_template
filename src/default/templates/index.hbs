@@ -5,6 +5,11 @@
     This page is part of the <a href="https://en.wikipedia.org/wiki/Open_source" target="_blank">open source</a> 
     javascript library</a> <a href="https://github.com/jeanlescure/short-unique-id" target="_blank">short-unique-id</a>.
   </p>
+  <p>
+    For usage examples <a href="/classes/shortuniqueid.html">click here</a>.
+  </p>
+</div>
+<div class="tsd-panel tsd-typography">
   <h2>Online (short) UUID generator</h2>
   <p>Press the buttons below to generate your short uuid codes:</p>
   Length: <input type="number" id="uuidLen" name="uuidLen" min="1" max="32" value="6" style="width: 34px;">
@@ -20,9 +25,39 @@
   <p>
     <strong>Your sequential UUID:</strong> <span id="sequentialResult" class="m-4">&nbsp;</span>
   </p>
+  <h2>Random Color generator</h2>
+  <p>
+    The ability to set a custom dictionary and length means that Short Unique ID is useful for many other cases such as this random color generator.
+  </p>
+  <pre>
+    <code>
+      <span class="hljs-keyword">var</span> uid = <span class="hljs-keyword">new</span> ShortUniqueId({
+        dictionary: [
+          <span class="hljs-string">'0'</span>, <span class="hljs-string">'1'</span>, <span class="hljs-string">'2'</span>, <span class="hljs-string">'3'</span>,
+          <span class="hljs-string">'4'</span>, <span class="hljs-string">'5'</span>, <span class="hljs-string">'6'</span>, <span class="hljs-string">'7'</span>,
+          <span class="hljs-string">'8'</span>, <span class="hljs-string">'9'</span>, <span class="hljs-string">'A'</span>, <span class="hljs-string">'B'</span>,
+          <span class="hljs-string">'C'</span>, <span class="hljs-string">'D'</span>, <span class="hljs-string">'E'</span>, <span class="hljs-string">'F'</span>,
+        ],
+      });
+      <span class="hljs-keyword">var</span> color = <span class="hljs-string">'#'</span> + uid.randomUUID(6) + <span class="hljs-string">';'</span>;
+    </code>
+  </pre>
+  <p>
+    <button id="genColor" class="btn-success">
+      Generate Random Color
+    </button>
+    <strong>Your random color:</strong> <span id="colorResult" class="m-4">&nbsp;</span>
+  </p>
   <script>
-    var ShortUniqueId = window['short-unique-id'].default;
     var uid = new ShortUniqueId({debug: true});
+    var colorUid = new ShortUniqueId({
+      dictionary: [
+        '0', '1', '2', '3',
+        '4', '5', '6', '7',
+        '8', '9', 'A', 'B',
+        'C', 'D', 'E', 'F',
+      ],
+    });
     $('#genRandom').click(function(e){
       e.preventDefault();
       $('#randomResult').html(uid.randomUUID(parseInt($('#uuidLen')[0].value)));
@@ -30,6 +65,12 @@
     $('#genSequential').click(function(e){
       e.preventDefault();
       $('#sequentialResult').html(uid.sequentialUUID());
+    });
+    $('#genColor').click(function(e){
+      e.preventDefault();
+      var color = colorUid.randomUUID(6);
+      $('#colorResult').html('#' + color);
+      $('#colorResult').attr('style', 'color: #' + color + ';');
     });
   </script>
 </div>
