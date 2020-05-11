@@ -50,7 +50,7 @@
   </p>
   <script>
     // Just so website doesn't fail if @latest tag points to version < 3
-    if (window['short-unique-id'].default) {
+    if ((window['short-unique-id'] || {}).default) {
       var ShortUniqueId = window['short-unique-id'].default;
     }
 
