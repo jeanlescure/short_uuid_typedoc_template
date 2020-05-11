@@ -49,6 +49,11 @@
     <strong>Your random color:</strong> <span id="colorResult" class="m-4">&nbsp;</span>
   </p>
   <script>
+    // Just so website doesn't fail if @latest tag points to version < 3
+    if (window['short-unique-id'].default) {
+      var ShortUniqueId = window['short-unique-id'].default;
+    }
+
     var uid = new ShortUniqueId({debug: true});
     var colorUid = new ShortUniqueId({
       dictionary: [
