@@ -1,11 +1,74 @@
-{{#if settings.gaID}}
+{{#if settings.gaID}}<!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{settings.gaID}}"></script>
   <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    var gtagId = '{{settings.gaID}}';
+    window['ga-disable-' + gtagId] = true;
 
-    ga('create', '{{settings.gaID}}', '{{settings.gaSite}}');
-    ga('send', 'pageview');
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    function initTracking(){
+      cookie('cookieconsent_status', 'allow');
+
+      $('.tsd-page-cookieconsent').removeClass('show');
+      $(window).off('scroll');
+      $('.cookieconsent-button').off('click');
+
+      window['ga-disable-' + gtagId] = false;
+      gtag('event', 'CookieConsent');
+      gtag('config', gtagId, {
+        'custom_map': {
+          'metric1': 'cookie_consent',
+          'metric2': 'color_mode_dark',
+          'metric3': 'color_mode_light',
+          'metric4': 'color_mode_np'
+        }
+      });
+      gtag('event', 'custom_metrics', {
+        'cookie_consent': 1,
+        'color_mode_dark': (
+          window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        ) ? (
+          1
+        ) : (
+          0
+        ),
+        'color_mode_light': (
+          window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
+        ) ? (
+          1
+        ) : (
+          0
+        ),
+        'color_mode_np' : (
+          !window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+          && !window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
+        ) ? (
+          1
+        ) : (
+          0
+        )
+      });
+    }
+
+    if (cookie.get('cookieconsent_status') === 'allow') {
+      initTracking();
+    } else {
+      $('.tsd-page-cookieconsent').addClass('show');
+
+      var scrollCounter = 0;
+      $(window).scroll(function(e) {
+        scrollCounter += 1;
+
+        if (scrollCounter >= 30) {
+          initTracking();
+        }
+      });
+
+      $('.cookieconsent-button').click(function() {
+        initTracking();
+      });
+    }
   </script>
 {{/if}}
